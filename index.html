@@ -40,6 +40,18 @@
             aspect-ratio: 1/1;
             object-fit: cover;
         }
+        
+        .controls {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+            width: 90%;
+        }
+        
+        .controls > p:hover {
+            cursor: pointer;
+            transform: scale(1.01);
+        }
 
         .content {
             flex: 2;
@@ -122,20 +134,26 @@
     </style>
 </head>
 <body>
-    <div class="player">
-        <div class="image-container">
-            <img src="./src/maxresdefault.jpg" alt="Portada de la canción">
-        </div>
-        <div class="content">
-            <div class="info">
-                <h2 id="song-title">El señor de la noche</h2>
+    <section>
+        <div class="player">
+            <div class="image-container">
+                <img src="./src/maxresdefault.jpg" alt="Portada de la canción">
             </div>
-            <!-- Reproductor de audio con estilos personalizados -->
-            <audio id="audio" src="./src/El Señor de la Noche.mp3" controls></audio>
-            <footer>
-                Sebastián Vargas
-            </footer>
+            <div class="content">
+                <div class="info">
+                    <h2 id="song-title">El señor de la noche</h2>
+                </div>
+                <!-- Reproductor de audio con estilos personalizados -->
+                <audio id="audio" src="./src/El Señor de la Noche.mp3" controls></audio>
+                <footer>
+                    Sebastián Vargas
+                </footer>
+            </div>
         </div>
-    </div>
+        <div class="controls">
+            <p>Atras</p>
+            <p>Siguiente</p>
+        </div>
+    </section>
 </body>
 </html>
