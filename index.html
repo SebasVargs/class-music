@@ -4,155 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reproductor de Música</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #121212;
-            color: white;
-            margin: 0;
-        }
 
-        .player {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            width: 90%;
-            max-width: 800px;
-            gap: 20px;
-        }
-
-        .image-container {
-            flex: 1;
-        }
-
-        img {
-            width: 100%;
-            border-radius: 10px;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-        }
-        
-        .controls {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 10px;
-            width: 90%;
-        }
-        
-        .controls > p:hover {
-            cursor: pointer;
-            transform: scale(1.01);
-        }
-
-        .content {
-            flex: 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-
-        .info {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        audio {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        /* Estilos personalizados para los controles de audio */
-        audio::-webkit-media-controls-panel {
-            background-color: #1e1e1e;
-        }
-
-        audio::-webkit-media-controls-play-button,
-        audio::-webkit-media-controls-mute-button {
-            background-color: #1DB954;
-            margin-right: 10px;
-            border-radius: 100%;
-        }
-
-        audio::-webkit-media-controls-current-time-display,
-        audio::-webkit-media-controls-time-remaining-display {
-            color: white;
-        }
-
-        audio::-webkit-media-controls-timeline {
-            background-color: #1DB954;
-            margin-left: 10px;
-            border-radius: 100px;
-        }
-
-        audio::-webkit-media-controls-volume-slider {
-            background-color: #1DB954;
-            margin-left: 10px;
-        }
-
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 14px;
-            color: #bbb;
-        }
-
-        @media (max-width: 600px) {
-            .player {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .image-container {
-                width: 100%;
-            }
-
-            .content {
-                width: 100%;
-                padding: 10px;
-            }
-
-            audio {
-                width: 100%;
-                margin-top: 0px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="https://fabiofforero.github.io/pagina-basica-reproductor/style.css">
 </head>
 <body>
     <section>
-        <div class="player">
+        <a class="nav-btn" href="https://blazing-heart.netlify.app/">Zoraya</a>
+        <a class="nav-btn" href="https://daniel2595.github.io/PaginaWeb/">Daniel</a>
+        <div class="body">
             <div class="image-container">
                 <img src="./src/maxresdefault.jpg" alt="Portada de la canción">
             </div>
             <div class="content">
                 <div class="info">
-                    <h2 id="song-title">El señor de la noche</h2>
+                    <h1 id="song-title">El señor de la noche</h2>
                 </div>
                 <!-- Reproductor de audio con estilos personalizados -->
-                <audio id="audio" src="./src/El Señor de la Noche.mp3" controls></audio>
                 <footer>
-                    Sebastián Vargas
+                    <audio id="reproductor" src="./src/El Señor de la Noche.mp3" controls></audio>
+                    <p class="nombre">
+                        Sebastián Vargas
+                    </p>
                 </footer>
             </div>
-        </div>
-        <div class="controls">
-            <a href="https://blazing-heart.netlify.app/">Zoraya</a>
-            <a href="https://daniel2595.github.io/PaginaWeb/">Daniel</a>
         </div>
     </section>
 </body>
