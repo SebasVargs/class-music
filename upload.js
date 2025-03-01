@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const uploadBtn = document.getElementById('upload-btn');
     const progressBar = document.getElementById('progress-bar');
     const messageDiv = document.getElementById('message');
+    const uploadForm = document.getElementById('upload-form');
     
     // Variables para almacenar el archivo
     let selectedFile = null;
@@ -73,8 +74,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Evento de clic en el botón de subida
-    uploadBtn.addEventListener('click', uploadFile);
+    // Manejar el envío del formulario
+    uploadForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (selectedFile) {
+            uploadFile();
+        }
+    });
     
     // Función para subir el archivo
     function uploadFile() {
@@ -83,37 +89,58 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         uploadBtn.disabled = true;
-        let progress = 0;
         
-        // Simulación de progreso
-        const interval = setInterval(() => {
-            progress += 5;
-            progressBar.style.width = progress + '%';
-            
-            if (progress >= 100) {
-                clearInterval(interval);
-                
-                setTimeout(() => {
-                    // Crear una URL para el archivo seleccionado
-                    const objectURL = URL.createObjectURL(selectedFile);
-                    
-                    // Guardar información en localStorage
-                    const songTitle = selectedFile.name.replace('.mp3', '');
-                    localStorage.setItem('newSong', JSON.stringify({
-                        title: songTitle,
-                        filename: selectedFile.name,
-                        objectURL: objectURL
-                    }));
-                    
-                    showMessage('¡Archivo cargado con éxito! El reproductor ha sido actualizado.', 'success');
-                    
-                    // Después de 2 segundos, redirigir a la página principal
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 2000);
-                }, 500);
+        // Crear FormData para enviar el archivo
+        const formData = new FormData();
+        formData.append('audiofile', selectedFile);
+        
+        // Crear un objeto XMLHttpRequest para poder mostrar el progreso
+        const xhr = new XMLHttpRequest();
+        
+        // Manejar el progreso de la subida
+        xhr.upload.addEventListener('progress', function(e) {
+            if (e.lengthComputable) {
+                const percentComplete = (e.loaded / e.total) * 100;
+                progressBar.style.width = percentComplete + '%';
             }
-        }, 100);
+        });
+        
+        // Cuando la subida se complete
+        xhr.addEventListener('load', function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                const response = JSON.parse(xhr.responseText);
+                showMessage('¡Archivo subido con éxito! El reproductor ha sido actualizado.', 'success');
+                
+                // Después de 2 segundos, redirigir a la página principal
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000);
+            } else {
+                let errorMsg = 'Error al subir el archivo';
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.message) {
+                        errorMsg = response.message;
+                    }
+                } catch (e) {
+                    console.error('Error al parsear respuesta:', e);
+                }
+                showMessage(errorMsg, 'error');
+                uploadBtn.disabled = false;
+            }
+        });
+        
+        // Manejar errores de red
+        xhr.addEventListener('error', function() {
+            showMessage('Error de conexión. Inténtalo de nuevo.', 'error');
+            uploadBtn.disabled = false;
+        });
+        
+        // Configurar la solicitud
+        xhr.open('POST', '/upload', true);
+        
+        // Enviar la solicitud con el FormData que contiene el archivo
+        xhr.send(formData);
     }
     
     // Mostrar mensajes al usuario
