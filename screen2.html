@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Música</title>
+    <link rel="stylesheet" href="screen2.css">
+</head>
+<body>
+    <div class="upload-container">
+        <h1>Sube tu música</h1>
+        <div class="upload-box">
+            <div id="drop-area">
+                <p>Arrastra y suelta tu archivo MP3 aquí</p>
+                <p>o</p>
+                <input type="file" id="fileElem" accept="audio/mp3" class="visually-hidden">
+                <label for="fileElem" class="upload-button">Seleccionar archivo</label>
+            </div>
+            <div id="file-info" class="file-info">
+                <p id="file-name">Ningún archivo seleccionado</p>
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+            </div>
+            <button id="upload-btn" class="upload-button" disabled>Subir archivo</button>
+        </div>
+        <div id="message" class="message"></div>
+        <a href="index.html" class="back-button">Volver al reproductor</a>
+    </div>
+
+    <script src="upload.js"></script>
+</body>
+</html>
